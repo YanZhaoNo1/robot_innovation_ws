@@ -1,0 +1,5 @@
+<launch>
+    <node name="lidar_node" pkg="lidar" type="lidar_node" output="screen">
+        <rosparam file="$(find lidar)/config/lidar.yaml" command="load" />
+    </node>    
+</launch>

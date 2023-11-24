@@ -7,6 +7,7 @@ https://wiki.ros.org/cn/ROS/Tutorials/CreatingMsgAndSrv
 https://wiki.ros.org/cn/ROS/TutorialsWritingServiceClient%28c%2B%2B%29
 https://wiki.ros.org/cn/ROS/TutorialsExaminingServiceClient
 3. 阅读ROSwiki Tutorials 的其他相关内容
+```
 
 # 第二次作业
 ```txt
@@ -26,3 +27,10 @@ https://wiki.ros.org/cn/ROS/TutorialsExaminingServiceClient
 3. 在主函数中申请订阅话题/scan，并设置回调函数为LidarCallback()
 4. 构建回调函数LidarCallback（），用来接收和处理雷达数据
 5. 在回调函数调用ROS_INFO()显示雷达监测的前方障碍物距离
+
+
+编写程序实现激光雷达避障，实验代码、视频上传云班课：
+1. 在主函数申请订阅话题/scan，并设置回调函数为LidarCallback()
+2. 在主函数发布速度控制话题/cmd_vel
+3. 在回调函数构建速度控制消息vel_cmd
+4. 在回调函数判断：激光雷达的测距数值小于1.5m时，机器人运动速度降低、旋转一定角度，避开障碍物
