@@ -1,5 +1,6 @@
 <launch>
-    <node name="qr_node" pkg="qr" type="qr_node" output="screen">
+    <node name="vel_node" pkg="vel" type="vel_node" output="screen">
         <rosparam file="$(find vel)/config/vel.yaml" command="load" />
+        <remap from="/vel_node/cmd_vel" to="cmd_vel" />
     </node>
 </launch>
