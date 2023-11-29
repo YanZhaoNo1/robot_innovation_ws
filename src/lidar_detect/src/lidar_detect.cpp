@@ -52,7 +52,7 @@ int main(int argc, char **argv) {
 }
 
 void LidarCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
-    float fMidDist = msg->ranges[719];
+    float fMidDist = msg->ranges[365];
 
     // 根据激光雷达数据调整速度
     if (fMidDist > obstacledist) {

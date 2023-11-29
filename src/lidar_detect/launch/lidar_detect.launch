@@ -1,10 +1,10 @@
 <launch>
-    <!-- <node name="lidar_detect" pkg="lidar_detect" type="lidar_detect" output="screen">
+    <node name="lidar_detect" pkg="lidar_detect" type="lidar_detect" output="screen">
         <rosparam file="$(find lidar_detect)/config/lidar_detect.yaml" command="load" />
         <remap from="/lidar_detect/lidar_vel" to="cmd_vel" />
-    </node> -->
-    <node name="lidar_detect_node" pkg="lidar_detect" type="lidar_detect.py" output="screen">
+    </node>
+    <!-- <node name="lidar_detect_node" pkg="lidar_detect" type="lidar_detect.py" output="screen">
         <rosparam file="$(find lidar_detect)/config/lidar_detect.yaml" command="load" />
         <remap from="/lidar_vel" to="cmd_vel" />
-    </node>
+    </node> -->
 </launch>
