@@ -57,8 +57,10 @@ void LidarCallback(const sensor_msgs::LaserScan::ConstPtr& msg) {
     // 根据激光雷达数据调整速度
     if (fMidDist > obstacledist) {
         lidar_vel.linear.x = 0.5;  // 如果距离大于1.0米，设置线速度为0.5 m/s
+        lidar_vel.angular.z = 0;
     } else {
         lidar_vel.linear.x = 0.1;  // 否则，设置线速度为0.1 m/s
+        lidar_vel.angular.z = 18;
     }
 
     ROS_INFO("Front distance ranges[719] = %f m", fMidDist);
