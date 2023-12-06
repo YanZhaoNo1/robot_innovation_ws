@@ -1,0 +1,5 @@
+<launch>
+    <node name="angle_calibration_node" pkg="angle_calibration" type="angle_calibration_node" output="screen">
+        <remap from="/angle_calibration_node/imu_vel" to="cmd_vel" />
+    </node>    
+</launch>
