@@ -1,0 +1,105 @@
+TebLocalPlannerROS:
+  ##=========================================================================================================================================================================================================
+  ## ----- Robot Configuration Parameters -----
+  acc_lim_x: 2.5 #1.5 #
+  acc_lim_theta: 5.0 #2.0 #
+  max_vel_x: 1.0 #3.0 #
+  max_vel_x_backwards: 0.5 #
+  max_vel_theta: 4 #4.0 #
+  min_turning_radius: 0.5 # 0.0
+  ##wheelbase: 1.0
+  cmd_angle_instead_rotvel: false #启动后机器人将使用角度作为旋转的指令
+  acc_lim_y: 2.5 #
+  max_vel_y: 1.5 #
+  ## ***** The following parameters are relevant for the footprint model used for optimization (see Tutorial Obstacle Avoidance and Robot Footprint Model). New in version 0.3 *****
+  footprint_model/type: "point" ##point,line,polygon
+  footprint_model/radius: 0.18
+  footprint_model/line_start: [-0.1, 0.0]
+  footprint_model/line_end: [0.1, 0.0]
+  footprint_model/front_offset: 0.2
+  footprint_model/front_radius: 0.2
+  footprint_model/rear_offset: 0.2
+  footprint_model/rear_radius: 0.2
+  footprint_model/vertices:
+    [[0.17, 0.13], [0.17, -0.13], [-0.17, -0.13], [-0.17, 0.13]]
+  is_footprint_dynamic: false
+  ##=========================================================================================================================================================================================================
+  ## ----- Goal Tolerance Parameters -----
+  xy_goal_tolerance: 0.04
+  yaw_goal_tolerance: 0.15
+  free_goal_vel: false
+  ##========================================================================================================================================================================================================
+  ## ----- Trajectory Configuration Parameters -----
+  dt_ref: 0.22 #局部路径规划参考时间步长，一般与机器人的半径相同##########
+  dt_hysteresis: 0.02 #调节时间步长的滞后范围###########
+  min_samples: 4 #规划出来轨迹中最小的点数
+  global_plan_overwrite_orientation: true #启动后局部路径起点与全局路径相同
+  global_plan_viapoint_sep: 0.30 #全局路径中两个关键点之间的距离################
+  max_global_plan_lookahead_dist: 1.0 #机器人可以看到最远的点################
+  force_reinit_new_goal_dist: 0.3 #机器人与目标点的距离超过这个值，teb重新规划路线
+  feasibility_check_no_poses: 0 #确定路径规划可行性的采样点数量
+  publish_feedback: false #启动后将发布teb反馈信息
+  shrink_horizon_backup: true #启动后将缩小路径规划范围以避免计算度复杂的情况
+  allow_init_with_backwards_motion: false #启动后将允许机器人向后移动初始化teb
+  exact_arc_length: false #启动后将提高计算轨迹精度的方式，但计算时间加长
+  shrink_horizon_min_duration: 10.0 #缩小路径规划范围的最小时间，小于这个时间，teb将不会操作
+  ##=========================================================================================================================================================================================================
+  ## ----- Obstacle Parameters -----
+  min_obstacle_dist: 0.200 #机器人与障碍物的最小距离########### 0.039
+  include_costmap_obstacles: true #启动后机器人将把动态障碍物添加到规划中
+  costmap_obstacles_behind_robot_dist: 0.6 #机器人后方的代价地图障碍物距离，大于视为动态障碍物，小于视为静态障碍物
+  obstacle_poses_affected: 30 #机器人障碍物的检测范围
+  inflation_dist: 0.205 #障碍物的膨胀系数
+  #include_dynamic_obstacles: true 
+  legacy_obstacle_association: false #启动后将使用传统关联凡是控制障碍物
+  obstacle_association_force_inclusion_factor: 1.5 #控制障碍物关联方式的因子
+  obstacle_association_cutoff_factor: 5.0 #控制障碍物关联方式的因子
+  costmap_converter_plugin: #代价地图转换器插件
+    "costmap_converter::CostmapToLinesDBSRANSAC"
+    #costmap_converter_plugin: " "
+  costmap_converter_spin_thread: true #代价地图转换器线程是否独立运行的标志
+  costmap_converter_rate: 5.0 #代价地图转换器线程的频率
+  ##=========================================================================================================================================================================================================
+  ## ----- Optimization Parameters -----
+  no_inner_iterations: 5 #每次内部优化迭代的次数
+  no_outer_iterations: 4 #整体优化的次数
+  penalty_epsilon: 0.1 #约束的惩罚项值
+  ##
+  weight_max_vel_x: 3.25 ##########4,2
+  weight_max_vel_y: 1.0
+  weight_max_vel_theta: 3.0
+  weight_acc_lim_x: 1
+  weight_acc_lim_y: 1
+  weight_acc_lim_theta: 3
+  weight_kinematics_nh: 1 #非完整性约束的权重，越大机器人越不会横向移动
+  weight_kinematics_forward_drive: 1000.0 #########
+  weight_kinematics_turning_radius: 0.0 #限制机器人转弯半径的大小
+  weight_optimaltime: 2.9 #最优时间权重######
+  weight_obstacle: 50 #障碍物代价权重########
+  #weight_dynamic_obstacle: 10
+  weight_viapoint: 0.2 #经过点代价的权重 0.2
+  weight_inflation: 0.2 #膨胀区域权重
+  weight_adapt_factor: 2.0 #自适应代价因子的大小
+  ##=========================================================================================================================================================================================================
+  ## ----- Parallel Planning in distinctive Topologies -----
+  ##simple_exploration: False
+  enable_homotopy_class_planning: false #启动后将规划多个路径，作为备选
+  enable_multithreading: true #启动多线程执行，提高规划速度
+  max_number_classes: 4 #同时规划路线的数量
+  selection_cost_hysteresis: 0.1 #切换路线的时间长度
+  selection_obst_cost_scale: 100.0 #避障代价的权重
+  selection_viapoint_cost_scale: 1.0 #经过中间路径点的权重
+  selection_alternative_time_cost: false #启动后将选择较短的路径，否则将倾向于使用最长的路径
+  roadmap_graph_no_samples: 15 #构建地图时的采样数量
+  roadmap_graph_area_width: 6 #道路区域的宽度
+  h_signature_prescaler: 1.0 #使用H_signature进行路径快速匹配的预缩放系数
+  h_signature_threshold: 0.1 #表示H_signature的阈值
+  obstacle_heading_threshold: 1.0 #机器人朝向和障碍物方向之间的阈值
+  obstacle_keypoint_offset: 0.1 #生成障碍物轮廓时机器人到障碍物的距离
+  visualize_hc_graph: true #启动后将可以在rviz中可视化Homotopy Class图
+  viapoints_all_candidates: true #启动后将考虑所有可行的图经点
+  switching_blocking_period: 0.0 #防止在多个规划器之间频繁切换的参数
+  ##=========================================================================================================================================================================================================
+  ## ----- Miscellaneous Parameters -----
+  odom_topic: "odom"
+  map_frame: "map"

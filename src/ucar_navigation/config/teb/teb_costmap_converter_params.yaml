@@ -1,0 +1,61 @@
+costmap_converter/CostmapToLinesDBSRANSAC:
+#Parameter for DB_Scan, maximum distance to neighbors [m] 
+    cluster_max_distance: 0.0
+#Parameter for DB_Scan: minimum number of points that define a cluster
+    cluster_min_pts: 1
+#Parameter for DB_Scan: maximum number of points that define a 
+#cluster (limit cluster size to avoid large L- and U-shapes) 
+    cluster_max_pts: 2
+#Maximum distance to the line segment for inliers [in meters]. 
+    ransac_inlier_distance: 0.00
+#Minimum numer of inliers required to form a line. 
+    ransac_min_inliers: 0
+#Number of ransac iterations per cluster. 
+    ransac_no_iterations: 1
+#Abort ransac iterations if the number of outliers is equal or below the value specified here
+    ransac_remainig_outliers: 0
+#Convert remaining outliers to single points.  
+    ransac_convert_outlier_pts: true
+#Filter the interior of remaining outliers and keep only keypoints of their convex hull.
+    ransac_filter_remaining_outlier_pts: false
+#Clear keypoints/vertices of
+# the convex polygon that are close to each other [distance in meters] (0: keep all) 
+    convex_hull_min_pt_separation: 0.00
+###########################################################################################################################
+costmap_converter/CostmapToLinesDBSMCCH:
+#Parameter for DB_Scan, maximum distance to neighbors [m] 
+    cluster_max_distance: 0.4
+ #Parameter for DB_Scan: minimum number of points that define a cluster 
+    cluster_min_pts: 2
+ #Parameter for DB_Scan: maximum number of points that define a cluster (limit cluster size to avoid large L- and U-shapes) 
+    cluster_max_pts: 30
+ #Clear keypoints/vertices of the convex polygon that are close to each other [distance in meters] (0: keep all) 
+    convex_hull_min_pt_separation: 0.1
+ # Minimum distance from a point to the line to be counted as support point 
+    support_pts_max_dist: 0.0
+ #A line is only defined, if the distance between two consecutive support points is less than this treshold. Set to 0 in order to deactivate this check. 
+    support_pts_max_dist_inbetween: 1.0
+ # Minimum number of support points required to represent a line. 
+    min_support_pts: 2
+#############################################################################################################################
+costmap_converter/CostmapToPolygonsDBSConcaveHull:
+#Parameter for DB_Scan, maximum distance to neighbors [m] 
+    cluster_max_distance: 0.4
+#Parameter for DB_Scan: minimum number of points that define a cluster 
+    cluster_min_pts: 2
+# Parameter for DB_Scan: maximum number of points that define a cluster (limit cluster size to avoid large L- and U-shapes) 
+    cluster_max_pts: 30
+# Clear keypoints/vertices of the convex polygon that are close to each other [distance in meters] (0: keep all) 
+    convex_hull_min_pt_separation: 0.1
+# Smaller depth: sharper surface, large depth: convex hull 
+    concave_hull_depth: 2.0
+#################################################################################################################
+costmap_converter/CostmapToPolygonsDBSMCCH:
+#Parameter for DB_Scan, maximum distance to neighbors [m] 
+    cluster_max_distance: 0.4
+ #Parameter for DB_Scan: minimum number of points that define a cluster 
+    cluster_min_pts: 2
+#Parameter for DB_Scan: maximum number of points that define a cluster (limit cluster size to avoid large L- and U-shapes) 
+    cluster_max_pts: 30
+ #Clear keypoints/vertices of the convex polygon that are close to each other [distance in meters] (0: keep all) 
+    convex_hull_min_pt_separation: 0.1

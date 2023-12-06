@@ -1,0 +1,33 @@
+<launch>
+
+    <param name="use_sim_time" value="true"/>
+    <arg name="planner"  default="mpc" doc="opt: dwa, mpc, pure_pursuit,teb"/> 
+    <arg name="model"  default="mecanum" doc="opt: mecanum"/> 
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" clear_params="true">
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" if="$(eval planner == 'dwa')" />
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" if="$(eval planner == 'teb')" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" if="$(eval planner == 'mpc')"/>
+
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <param name="planner_frequency" value="1.0" />
+    <param name="planner_frequency" value="0.0" if="$(eval planner == 'pure_pursuit')"/>
+    <param name="planner_patience" value="5.0" />
+
+    <rosparam file="$(find ucar_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find ucar_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ucar_navigation)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ucar_navigation)/config/global_costmap_params.yaml" command="load" />
+
+    <rosparam file="$(find ucar_navigation)/config/move_base_params.yaml" command="load" />
+    <rosparam file="$(find ucar_navigation)/config/GlobalPlanner.yaml" command="load" />
+    <rosparam file="$(find ucar_navigation)/config/teb/teb_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find ucar_navigation)/config/teb/teb_costmap_converter_params.yaml" command="load" />
+    
+    <rosparam file="$(find ucar_navigation)/config/mpc/mpc_last_params.yaml" command="load" />
+    <rosparam file="$(find ucar_navigation)/config/mpc/pure_pursuit_params.yaml" command="load" />
+
+  </node>
+  
+</launch>
