@@ -2,12 +2,12 @@ odom_frame_id: odom #里程计坐标系
 base_frame_id: base_link #底盘坐标系
 map_frame_id: map #地图坐标系
 
-mid_point_num: 9  #终点数量
-mid_point_tolerance: [5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0] #终点容差
+mid_point_num: 1  #终点数量
+mid_point_tolerance: [0.2,5.0,5.0,5.0,5.0,5.0,5.0,5.0,5.0] #终点容差
 mid_point_angle_tolerance: [5,5,5,5,5,5,5,5,5] #终点角度容差
 mid_point_position: #终点位置
   [ 
-    [15.611, 10.091, 0.0],
+    [-0.893, -0.104, 0.0],
     [10.905, 19.335, 0.0],
     [-5.997, 11.817, 0.0],
     [-8.692, 5.518, 0.0],
