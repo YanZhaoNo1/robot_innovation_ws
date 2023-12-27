@@ -1,15 +1,29 @@
 <launch>
-    <arg name="map" default="map.yaml" />
+    <!-- to start up the car -->
+    <!-- however, will not start room detection and voice recognition -->
+    <!-- so that their logs can be separated from navigation nodes -->
 
-    <!-- 运行地图服务器，并且加载设置的地图-->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find ucar_navigation)/maps/$(arg map)"/>
+	<!-- command line flags -->
+    <!-- not used -->
+	
+    <!-- ###################################### -->
+    <!-- ##       SIMULATION                 ## -->
+    <!-- ###################################### -->
 
-    <!-- 开启底盘 -->
-    <include file="$(find zoo_robot)/launch/robot_lidar.launch" />
-    <!-- 导航节点 -->
-    <include file="$(find robot_slam)/launch/navigation.launch" />
+    <include file="$(find gazebo_pkg)/launch/empty_race_track.launch" />
+
+    <!-- ###################################### -->
+    <!-- ##       NAVIGATION STACK           ## -->
+    <!-- ###################################### -->
+
+    <!-- start navigation stack -->
+    <include file="$(find ucar_navigation)/launch/nav.launch" />
+
+    <!-- ###################################### -->
+    <!-- ##       DECISION & LOGIC           ## -->
+    <!-- ###################################### -->
+    <!-- <include file="$(find qr)/launch/qr.launch" /> -->
     <!-- <include file="$(find ucar_commander)/launch/ucar_commander.launch" /> -->
     <!-- not used -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_slam)/rviz/view_navigation.rviz" />
 
 </launch>
