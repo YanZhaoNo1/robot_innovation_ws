@@ -6,9 +6,9 @@ import numpy as np
 from ros_opencv import ROS2OPENCV
 from std_msgs.msg import String
 
-class RedBallDetector(ROS2OPENCV):
+class BlueBallDetector(ROS2OPENCV):
     def __init__(self, node_name):
-        super(RedBallDetector, self).__init__(node_name)
+        super(BlueBallDetector, self).__init__(node_name)
         self.detect_box = None
         self.initRange()
     
@@ -19,9 +19,9 @@ class RedBallDetector(ROS2OPENCV):
         
         ###create inrange mask(yellow and red)###
         res = src.copy()
-        mask_red1 = cv2.inRange(hsv, self.red_min, self.red_max)
-        mask_red2 = cv2.inRange(hsv, self.red2_min, self.red2_max)
-        mask = cv2.bitwise_or(mask_red1, mask_red2)
+        mask_blue1 = cv2.inRange(hsv, self.blue_min, self.blue_max)
+        mask_blue2 = cv2.inRange(hsv, self.blue2_min, self.blue2_max)
+        mask = cv2.bitwise_or(mask_blue1, mask_blue2)
 
         res = cv2.bitwise_and(src, src, mask=mask)
         h,w = res.shape[:2]
@@ -43,19 +43,15 @@ class RedBallDetector(ROS2OPENCV):
         return processed_image
     
     def initRange(self):
-        self.red_min = np.array([0, 128, 46])
-        self.red_max = np.array([5, 255,  255])
-        self.red2_min = np.array([156, 128,  46])
-        self.red2_max = np.array([180, 255,  255])
-        self.blue_min = np.array([0, 128, 46])
-        self.blue_max = np.array([5, 255,  255])
-        self.blue2_min = np.array([156, 128,  46])
-        self.blue2_max = np.array([180, 255,  255])
+        self.blue_min = np.array([46, 128, 0])
+        self.blue_max = np.array([2555, 255,  5])
+        self.blue2_min = np.array([46, 128,  156])
+        self.blue2_max = np.array([255, 255,  180])
 
 if __name__ == '__main__':
     try:
-        node_name = "red_ball_detector"
-        RedBallDetector(node_name)
+        node_name = "blue_ball_detector"
+        BlueBallDetector(node_name)
         rospy.spin()
     except KeyboardInterrupt:
         print "Shutting down face detector node."

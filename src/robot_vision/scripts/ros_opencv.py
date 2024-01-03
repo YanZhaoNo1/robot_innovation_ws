@@ -108,6 +108,13 @@ class ROS2OPENCV(object):
             cv2.putText(self.display_image, "CPS: " + str(self.cps), (10, vstart), font_face, font_scale,(255, 255, 0))
             cv2.putText(self.display_image, "RES: " + str(self.frame_size[0]) + "X" + str(self.frame_size[1]), (10, voffset), font_face, font_scale, (255, 255, 0))            
             ###show result###
+
+            (rows,cols,channels) = self.display_image.shape
+            if cols >200 and rows >200:
+                cv2.circle(self.display_image,(120,120),10,(255,0,0),-1)
+                cv2.circle(self.display_image,(150,150),15,(0,255,0),-1)
+                cv2.circle(self.display_image,(190,190),20,(0,0,255),-1)
+
             cv2.imshow(self.window_name, self.display_image)
             cv2.waitKey(3)
               
